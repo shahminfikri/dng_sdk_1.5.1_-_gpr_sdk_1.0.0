@@ -19,7 +19,11 @@
 #include "dng_pthread.h"
 #endif
 
+#if ((defined(_WIN32) || defined(_WIN64)) && __GNUC__ > 3)
+#include "mingw.mutex.h"
+#else
 #include <mutex>
+#endif
 
 typedef std::mutex					 dng_std_mutex;
 typedef std::lock_guard<std::mutex>	 dng_lock_std_mutex;
