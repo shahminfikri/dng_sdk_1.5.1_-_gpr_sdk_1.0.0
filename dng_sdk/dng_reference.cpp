@@ -469,7 +469,7 @@ void RefCopyArea8_S16 (const uint8 *sPtr,
 			for (uint32 plane = 0; plane < planes; plane++)
 				{
 				
-				int16 x = *sPtr;
+				int16 x = *sPtr2;
 				
 				*dPtr2 = x ^ 0x8000;
 				
@@ -822,9 +822,9 @@ void RefCopyAreaS16_R32 (const int16 *sPtr,
 			for (uint32 plane = 0; plane < planes; plane++)
 				{
 				
-				int32 x = (*sPtr ^ 0x8000);
-			
-				*dPtr2 = scale * (real32) x;
+				int32 x = *sPtr2;
+				
+				*dPtr2 = scale * (real32) (x + 32768);
 				
 				sPtr2 += sPlaneStep;
 				dPtr2 += dPlaneStep;
@@ -1805,7 +1805,7 @@ void RefBaseline1DTable (const real32 *sPtr,
 		
 		real32 x = sPtr [col];
 		
-		real32 y = table.Interpolate (x);
+		real32 y = table.Interpolate (Pin_real32 (x));
 		
 		dPtr [col] = y;
 		
@@ -1832,6 +1832,10 @@ void RefBaselineRGBTone (const real32 *sPtrR,
 		real32 g = sPtrG [col];
 		real32 b = sPtrB [col];
 		
+		r = Pin_real32 (r);
+		g = Pin_real32 (g);
+		b = Pin_real32 (b);
+
 		real32 rr;
 		real32 gg;
 		real32 bb;

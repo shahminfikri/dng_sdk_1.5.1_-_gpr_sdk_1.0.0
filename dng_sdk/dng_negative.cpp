@@ -3420,7 +3420,7 @@ void dng_negative::Parse (dng_host &host,
 		
 		}
   
-    if (shared.fDepthFormat <= depthFormatUnknown)
+    if (shared.fDepthFormat != depthFormatUnknown)
         {
         
         SetDepthFormat (shared.fDepthFormat);

@@ -2731,6 +2731,15 @@ bool dng_info::IsValidDNG ()
                 
                 }
             
+			// Also errors to enhanced image...
+			
+			if (index == (uint32) fEnhancedIndex)
+				{
+				
+				return false;
+				
+				}
+				
 			}
 		
 		}

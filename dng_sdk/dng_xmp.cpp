@@ -3293,6 +3293,13 @@ void dng_xmp::SyncExif (dng_exif &exif,
 				
 						}
 						
+					else if (s [0] == 0)
+						{
+						
+						valid = false;
+						
+						}
+						
 					else
 						{
 						

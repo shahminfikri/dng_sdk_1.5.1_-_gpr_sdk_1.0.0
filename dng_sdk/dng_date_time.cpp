@@ -294,7 +294,9 @@ dng_string dng_date_time_info::OffsetTime () const
         
         s [4] = (minutes / 10) + '0';
         s [5] = (minutes % 10) + '0';
-        
+
+		s [6] = 0;
+
         result.Set (s);
                 
         }

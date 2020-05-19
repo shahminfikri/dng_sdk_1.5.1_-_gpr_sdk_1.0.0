@@ -2317,7 +2317,7 @@ void dng_lossless_decoder::DecodeImage ()
 	
 	#if qSupportHasselblad_3FR
 	
-	if (info.Ss == 8)
+	if (info.Ss == 8 && (numCOL & 1) == 0)
 		{
 		
 		fHasselblad3FR = true;
@@ -2452,7 +2452,7 @@ void dng_lossless_decoder::DecodeImage ()
         // For the rest of the column on this row, predictor
         // calculations are based on PSV. 
 
-     	if (compsInScan == 2 && info.Ss == 1)
+     	if (compsInScan == 2 && info.Ss == 1 && numCOL > 1)
     		{
     		
     		// This is the combination used by both the Canon and Kodak raw formats. 
