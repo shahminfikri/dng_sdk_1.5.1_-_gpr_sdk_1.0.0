@@ -169,7 +169,7 @@
 
 #ifndef qDNGIntelCompiler
 #if defined(__INTEL_COMPILER)
-#define qDNGIntelCompiler (__INTEL_COMPILER >= 1700)
+#define qDNGIntelCompiler __INTEL_COMPILER >= 1700
 #else
 #define qDNGIntelCompiler 0
 #endif
@@ -273,7 +273,7 @@
 /// 1 if target platform has thread support and threadsafe libraries, 0 otherwise.
 
 #ifndef qDNGThreadSafe
-#define qDNGThreadSafe (qMacOS || qWinOS)
+#define qDNGThreadSafe qMacOS || qWinOS
 #endif
 
 /*****************************************************************************/
@@ -328,7 +328,7 @@
 /// 1 to use XMPDocOps.
 
 #ifndef qDNGXMPDocOps
-#define qDNGXMPDocOps (!qDNGValidateTarget)
+#define qDNGXMPDocOps !qDNGValidateTarget
 #endif
 
 /*****************************************************************************/
@@ -353,7 +353,7 @@
 /*****************************************************************************/
 
 #ifndef qDNGSupportVC5
-#define qDNGSupportVC5 (1)
+#define qDNGSupportVC5 1
 #endif
 
 /*****************************************************************************/
@@ -362,7 +362,7 @@
 /// Set to 1 when using a Sanitizer tool.
 
 #ifndef qDNGUsingSanitizer
-#define qDNGUsingSanitizer (0)
+#define qDNGUsingSanitizer 0
 #endif
 
 /*****************************************************************************/
