@@ -36,11 +36,15 @@
 #include "dng_utils.h"
 #include "dng_xmp.h"
 
+#if GPR_WRITING
+#include "stdc_includes.h"
+#include "log.h"
+#else
 #include "zlib.h"
-
 #if qDNGUseLibJPEG
 #include "jpeglib.h"
 #include "jerror.h"
+#endif
 #endif
 
 #include <atomic>
@@ -3842,6 +3846,11 @@ void dng_image_writer::WriteData (dng_host &host,
 		case ccDeflate:
 			{
 			
+#if GPR_WRITING
+			// These compression types are not supported
+			ThrowProgramError();
+			break;
+#else
 			// Both these compression algorithms are byte based.  The floating
 			// point predictor already does byte ordering, so don't ever swap
 			// when using it.
@@ -3920,6 +3929,7 @@ void dng_image_writer::WriteData (dng_host &host,
 			stream.Put (dBuffer, dBytes);
 				
 			return;
+#endif
 
 			}
 			
@@ -4788,7 +4798,11 @@ void dng_image_writer::WriteImage (dng_host &host,
 			compressedBuffer.Reset (host.Allocate (compressedSize));
 			}
 		
+#if GPR_WRITING
+		if (uncompressedSize.Get () && ifd.fCompression != ccVc5)
+#else
 		if (uncompressedSize.Get ())
+#endif
 			{
 			uncompressedBuffer.Reset (host.Allocate (uncompressedSize.Get ()));
 			}
@@ -5798,6 +5812,10 @@ void dng_image_writer::WriteDNG (dng_host &host,
 							     bool uncompressed)
 	{
 	
+#if GPR_WRITING
+	TIMESTAMP("[BEG]", 2)
+#endif
+	
 	WriteDNGWithMetadata (host,
 						  stream,
 						  negative,
@@ -5805,6 +5823,10 @@ void dng_image_writer::WriteDNG (dng_host &host,
 						  previewList,
 						  maxBackwardVersion,
 						  uncompressed);
+	
+#if GPR_WRITING
+	TIMESTAMP("[END]", 2)
+#endif
 	
 	}
 	
@@ -5830,10 +5852,16 @@ void dng_image_writer::WriteDNGWithMetadata (dng_host &host,
 					 kMetadataSubset_All,
 					 "image/dng");
 					 
+#if GPR_WRITING
+	// Figure out the compression to use. Can be lossless JPEG or VC5
+	
+	uint32 compression = uncompressed ? ccUncompressed : GetDefaultCompression();
+#else
 	// Figure out the compression to use.  Most of the time this is lossless
 	// JPEG.
 	
 	uint32 compression = uncompressed ? ccUncompressed : ccJPEG;
+#endif
 		
 	// Was the the original file lossy JPEG compressed?
 	
@@ -6352,6 +6380,18 @@ void dng_image_writer::WriteDNGWithMetadata (dng_host &host,
 		ThrowProgramError ("No JPEG compressed image");
 				
 		}
+#if GPR_WRITING
+	else if (info.fCompression == ccVc5)
+		{
+		
+		info.fTileWidth  = info.fImageWidth;
+		info.fTileLength = info.fImageLength;
+		
+		info.fUsesStrips = false;
+		
+		info.fUsesTiles = true;
+		}
+#endif
 		
 	// Don't use tiles for uncompressed images.
 		
