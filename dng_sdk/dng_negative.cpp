@@ -38,6 +38,9 @@
 #include "dng_uncopyable.h"
 #include "dng_utils.h"
 #include "dng_xmp.h"
+#if GPR_READING
+#include "dng_read_image.h"
+#endif
 
 /*****************************************************************************/
 
