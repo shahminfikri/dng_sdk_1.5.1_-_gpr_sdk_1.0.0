@@ -628,7 +628,7 @@ static bool read_dng(const gpr_allocator*       allocator,
             
             negative->ReadVc5Image(host, *dng_read_stream, info, reader);
 
-            dng_ifd &rawIFD = *info.fIFD [info.fMainIndex].Get ();
+            dng_ifd &rawIFD = *info.fIFD [info.fMainIndex];
 	        
             if (rawIFD.fOpcodeList2Count)
             {
@@ -727,7 +727,7 @@ static bool read_dng(const gpr_allocator*       allocator,
                 }
                 
                 {
-                    dng_ifd &rawIFD = *info.fIFD [info.fMainIndex].Get ();
+                    dng_ifd &rawIFD = *info.fIFD [info.fMainIndex];
                  
                     gpr_saturation_level& dgain_saturation_level = tuning_info.dgain_saturation_level;
                     
@@ -1186,7 +1186,7 @@ static void write_dng(const gpr_allocator*          allocator,
         // Add noise profile
         if ( tuning_info->noise_scale > 0 )
         {
-            std::vector<dng_noise_function> noiseFunctions;
+            dng_std_vector<dng_noise_function> noiseFunctions;
             noiseFunctions.push_back( dng_noise_function ( tuning_info->noise_scale, tuning_info->noise_offset ) );
             negative->SetNoiseProfile( dng_noise_profile ( noiseFunctions ) );
         }
