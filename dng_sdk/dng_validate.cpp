@@ -837,13 +837,18 @@ int main (int argc, char *argv [])
 					return 1;
 					}
 				
-				if (!gDumpStage1.EndsWith (".tif"))
+				if (!gDumpStage1.EndsWith (".tif") || !gDumpStage1.EndsWith (".tiff"))
 					{
-					gDumpStage1.Append (".tif");
+					if (!gDumpStage1.EndsWith (".tiff"))
+						{
+						gDumpStage1.Append (".tif");
+						}
+						else
+						{
+						gDumpStage1.Append (".tiff");
+						}
 					}
 				
-				}
-					
 			else if (option.Matches ("2"))
 				{
 				
@@ -860,9 +865,16 @@ int main (int argc, char *argv [])
 					return 1;
 					}
 				
-				if (!gDumpStage2.EndsWith (".tif"))
+				if (!gDumpStage2.EndsWith (".tif") || !gDumpStage2.EndsWith (".tiff"))
 					{
-					gDumpStage2.Append (".tif");
+					if (!gDumpStage2.EndsWith (".tiff"))
+						{
+						gDumpStage2.Append (".tif");
+						}
+						else
+						{
+						gDumpStage2.Append (".tiff");
+						}
 					}
 				
 				}
@@ -883,9 +895,16 @@ int main (int argc, char *argv [])
 					return 1;
 					}
 				
-				if (!gDumpStage3.EndsWith (".tif"))
+				if (!gDumpStage3.EndsWith (".tif") || !gDumpStage3.EndsWith (".tiff"))
 					{
-					gDumpStage3.Append (".tif");
+					if (!gDumpStage3.EndsWith (".tiff"))
+						{
+						gDumpStage3.Append (".tif");
+						}
+						else
+						{
+						gDumpStage3.Append (".tiff");
+						}
 					}
 				
 				}
@@ -906,9 +925,16 @@ int main (int argc, char *argv [])
                     return 1;
                     }
                 
-                if (!gDumpTransparency.EndsWith (".tif"))
+                if (!gDumpTransparency.EndsWith (".tif") || !gDumpTransparency.EndsWith (".tiff"))
                     {
-                    gDumpTransparency.Append (".tif");
+                    if (!gDumpTransparency.EndsWith (".tiff"))
+                        {
+                        gDumpTransparency.Append (".tif");
+                        }
+                        else
+                        {
+                        gDumpTransparency.Append (".tiff");
+                        }
                     }
                 
                 }
@@ -929,9 +955,16 @@ int main (int argc, char *argv [])
                     return 1;
                     }
                 
-                if (!gDumpDepthMap.EndsWith (".tif"))
+                if (!gDumpDepthMap.EndsWith (".tif") || !gDumpDepthMap.EndsWith (".tiff"))
                     {
-                    gDumpDepthMap.Append (".tif");
+                    if (!gDumpDepthMap.EndsWith (".tiff"))
+                        {
+                        gDumpDepthMap.Append (".tif");
+                        }
+                        else
+                        {
+                        gDumpDepthMap.Append (".tiff");
+                        }
                     }
                 
                 }
@@ -952,9 +985,16 @@ int main (int argc, char *argv [])
 					return 1;
 					}
 				
-				if (!gDumpTIF.EndsWith (".tif"))
+				if (!gDumpTIF.EndsWith (".tif") || !gDumpTIF.EndsWith (".tiff"))
 					{
-					gDumpTIF.Append (".tif");
+					if (!gDumpTIF.EndsWith (".tiff"))
+						{
+						gDumpTIF.Append (".tif");
+						}
+						else
+						{
+						gDumpTIF.Append (".tiff");
+						}
 					}
 				
 				}
