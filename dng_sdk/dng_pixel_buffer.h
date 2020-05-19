@@ -60,7 +60,7 @@ void OptimizeOrder (void *&dPtr,
 
 /*****************************************************************************/
 
-#define qDebugPixelType 0
+#define qDebugPixelType 1
 
 #if qDebugPixelType
 
