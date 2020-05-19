@@ -849,6 +849,8 @@ int main (int argc, char *argv [])
 						}
 					}
 				
+				}
+			
 			else if (option.Matches ("2"))
 				{
 				
