@@ -27,7 +27,7 @@
 
 // Make sure a platform is defined
 
-#if !(defined(qMacOS) || defined(qWinOS) || defined(qAndroid) || defined(qiPhone) || defined(qLinux))
+#if (defined(qMacOS) || defined(qWinOS) || defined(qAndroid) || defined(qiPhone) || defined(qLinux))
 #include "RawEnvironment.h"
 #endif
 
