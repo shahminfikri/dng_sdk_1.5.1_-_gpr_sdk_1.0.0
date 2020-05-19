@@ -58,7 +58,7 @@
 // Vista, and Camera Raw and DNG Converter 8.3 need to continue working on
 // Windows XP. -erichan 2013-11-08.
 
-#define qDNGUseConditionVariable 0
+//#define qDNGUseConditionVariable 0
 
 /*****************************************************************************/
 
