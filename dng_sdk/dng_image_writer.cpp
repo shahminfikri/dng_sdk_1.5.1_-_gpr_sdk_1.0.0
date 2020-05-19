@@ -3631,7 +3631,7 @@ void dng_lzw_compressor::Compress (const uint8 *sPtr,
 
 /*****************************************************************************/
 
-#if qDNGUseLibJPEG
+#if qDNGUseLibJPEG && !GPR_WRITING
 
 /*****************************************************************************/
 
@@ -3969,7 +3969,7 @@ void dng_image_writer::WriteData (dng_host &host,
 			
 			}
 			
-		#if qDNGUseLibJPEG
+		#if qDNGUseLibJPEG && !GPR_WRITING
 		
 		case ccLossyJPEG:
 			{
@@ -4097,7 +4097,7 @@ void dng_image_writer::EncodeJPEGPreview (dng_host &host,
 										  int32 quality)
 	{
 	
-	#if qDNGUseLibJPEG
+	#if qDNGUseLibJPEG && !GPR_WRITING
 		
 	dng_memory_stream stream (host.Allocator ());
 	
