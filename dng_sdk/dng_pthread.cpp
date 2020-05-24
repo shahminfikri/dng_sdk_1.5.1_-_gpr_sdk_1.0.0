@@ -383,7 +383,7 @@ int dng_pthread_create(dng_pthread_t *thread, const pthread_attr_t *attrs, void 
 #else
 			result = _beginthreadex(NULL, (unsigned)stacksize, trampoline, args.get(), 0, &threadID);
 #endif
-			if (result == NULL)
+			if (result == (uintptr_t) NULL)
 				return -1; // ENOMEM
 #if __GNUC__ > 3
 			args.Release();
