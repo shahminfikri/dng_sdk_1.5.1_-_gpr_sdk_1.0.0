@@ -34,6 +34,10 @@
 #undef _UNICODE
 */
 
+#if __GNUC__ > 3
+#include "dng_auto_ptr.h"
+#endif
+
 #include <windows.h>
 #include <process.h>
 #include <errno.h>
@@ -350,10 +354,17 @@ int dng_pthread_create(dng_pthread_t *thread, const pthread_attr_t *attrs, void 
 	{
 		uintptr_t result;
 		unsigned threadID;
+#if __GNUC__ > 3
+		AutoPtr<trampoline_args> args(new (std::nothrow) trampoline_args);
+		AutoPtr<void *> resultHolder(new (std::nothrow) (void *));
+
+		if (args.Get() == NULL || resultHolder.Get () == NULL)
+#else
 		std::auto_ptr<trampoline_args> args(new (std::nothrow) trampoline_args);
 		std::auto_ptr<void *> resultHolder(new (std::nothrow) (void *));
 
 		if (args.get() == NULL || resultHolder.get () == NULL)
+#endif
 			return -1; // ENOMEM
 
 		args->func = func;
@@ -367,10 +378,18 @@ int dng_pthread_create(dng_pthread_t *thread, const pthread_attr_t *attrs, void 
 		{
 			ScopedLock lockMap(primaryHandleMapLock);
 
+#if __GNUC__ > 3
+			result = _beginthreadex(NULL, (unsigned)stacksize, trampoline, args.Get(), 0, &threadID);
+#else
 			result = _beginthreadex(NULL, (unsigned)stacksize, trampoline, args.get(), 0, &threadID);
+#endif
 			if (result == NULL)
 				return -1; // ENOMEM
+#if __GNUC__ > 3
+			args.Release();
+#else
 			args.release();
+#endif
 
 			std::pair<DWORD, std::pair<HANDLE, void **> > newMapEntry(threadID,
 																	 std::pair<HANDLE, void **>((HANDLE)result, resultHolder.get ()));
@@ -381,7 +400,11 @@ int dng_pthread_create(dng_pthread_t *thread, const pthread_attr_t *attrs, void 
 		}
 
 
+#if __GNUC__ > 3
+		resultHolder.Release ();		
+#else
 		resultHolder.release ();
+#endif
 
 		*thread = (dng_pthread_t)threadID;
 		return 0;
