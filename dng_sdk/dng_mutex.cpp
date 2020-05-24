@@ -446,7 +446,7 @@ bool dng_condition::Wait (dng_mutex &mutex, double timeoutSecs)
 		now.tv_sec  = (long) timeoutSecs;
 		now.tv_nsec = (long) ((timeoutSecs - now.tv_sec) * 1000000000);
 
-		#if (defined(_MSC_VER) || __GNUC__ > 3) && _MSC_VER < 1900
+		#if (defined(_MSC_VER) && _MSC_VER >= 1900) || (__GNUC__ > 3 && _MSC_VER < 1900)
 		
 		struct dng_timespec tempNow;
 		
