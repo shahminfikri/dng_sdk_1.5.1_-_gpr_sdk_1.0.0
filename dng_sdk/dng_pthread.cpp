@@ -723,7 +723,7 @@ int dng_pthread_cond_timedwait(dng_pthread_cond_t *cond, dng_pthread_mutex_t *mu
 	
 	struct dng_timespec sys_timespec;
 	
-#if (defined(_MSC_VER) || __GNUC__ > 3) && _MSC_VER < 1900
+#if (defined(_MSC_VER) && _MSC_VER >= 1900) || (__GNUC__ > 3 && _MSC_VER < 1900)
 
 	struct timespec temp;
 	dng_pthread_now (&temp);
